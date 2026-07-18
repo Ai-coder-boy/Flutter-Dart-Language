@@ -1,0 +1,101 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  int currentIndex = 0;
+
+  final List<Widget> pages = [
+    HomePage(),
+    ShortsPage(),
+    SearchPage(),
+    SharePage(),
+    RewardsPage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      // BODY
+      body: pages[currentIndex],
+
+      // BOTTOM NAVIGATION
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+        type: BottomNavigationBarType.fixed,
+
+        backgroundColor: Colors.white,        
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black54,
+
+        selectedFontSize: 12,
+        unselectedFontSize: 12,
+
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+
+        items: const [
+
+          // HOME
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+
+          // SHORTS
+          BottomNavigationBarItem(
+            icon: Icon(Icons.play_circle_outline),
+            label: "Shorts",
+          ),
+
+          // ADD BUTTON
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.search,
+              size: 50,
+            ),
+            label: "",
+          ),
+
+          // SUBSCRIPTIONS
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: "Share",
+          ),
+
+          // PROFILE
+          BottomNavigationBarItem(
+            icon: Icon(Icons.card_giftcard),
+            label: "Reward"
+          ),
+        ],
+      ),
+    );
+  }
+}
